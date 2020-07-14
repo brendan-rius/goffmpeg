@@ -81,6 +81,7 @@ type Mediafile struct {
 	pixFmt                string
 	rawInputArgs          []string
 	rawOutputArgs         []string
+	deadline              string
 }
 
 /*** SETTERS ***/
@@ -714,6 +715,7 @@ func (m *Mediafile) ToStrCommand() []string {
 		"OutputPath",
 		"Bframe",
 		"MovFlags",
+		"Deadline",
 	}
 
 	for _, name := range opts {
@@ -1153,10 +1155,10 @@ func (m *Mediafile) ObtainCompressionLevel() []string {
 func (m *Mediafile) ObtainMapMetadata() []string {
 	if m.mapMetadata != "" {
 		return []string{"-map_metadata", m.mapMetadata}
-  }
-  return nil
+	}
+	return nil
 }
-    
+
 func (m *Mediafile) ObtainEncryptionKey() []string {
 	if m.encryptionKey != "" {
 		return []string{"-hls_key_info_file", m.encryptionKey}
@@ -1189,4 +1191,11 @@ func (m *Mediafile) ObtainRawInputArgs() []string {
 
 func (m *Mediafile) ObtainRawOutputArgs() []string {
 	return m.rawOutputArgs
+}
+
+func (m *Mediafile) ObtainDeadline() []string {
+	if m.deadline != "" {
+		return []string{"-deadline", m.deadline}
+	}
+	return nil
 }
